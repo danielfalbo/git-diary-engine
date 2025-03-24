@@ -3,6 +3,9 @@
 Git as a diary engine. Paragraph-based.
 Inspired by [Notetime App](https://notetimeapp.com)
 
+![j screenshot](./j-screenshot.png)
+![jlog screenshot](./jlog-screenshot.png)
+
 ## Quick Start
 
 1. Fork this repo
