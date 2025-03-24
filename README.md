@@ -25,10 +25,10 @@ function j() {
     cd $JOURNAL_DIR
     TMPFILE=".tmp_entry"
 
-    vim -c "normal G" -c "normal! zt" -c "startinsert" "$TMPFILE"
+    vim "startinsert" "$TMPFILE"
 
     # # goyo user?
-    # vim -c "Goyo" -c "normal G" -c "normal! zt" -c "startinsert" "$TMPFILE"
+    # vim -c "Goyo" -c "startinsert" "$TMPFILE"
 
     if [ -s "$TMPFILE" ]; then
         git add "$TMPFILE"
