@@ -25,7 +25,7 @@ function j() {
     cd $JOURNAL_DIR
     TMPFILE=".tmp_entry"
 
-    vim "startinsert" "$TMPFILE"
+    vim -c "startinsert" "$TMPFILE"
 
     # # goyo user?
     # vim -c "Goyo" -c "startinsert" "$TMPFILE"
