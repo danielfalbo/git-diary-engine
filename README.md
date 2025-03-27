@@ -61,3 +61,9 @@ function jlog() {
 
 Launching `jlog` from anywhere in the terminal will pretty print the messages of the `JOURNAL_DIR`
 git commits, which will be the conten of the journal itself.
+
+## Pushing changes upstream
+
+```bash
+alias jpush='cd $JOURNAL_DIR && git push'
+```
