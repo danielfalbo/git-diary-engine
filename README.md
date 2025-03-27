@@ -32,7 +32,7 @@ function j() {
 
     if [ -s "$TMPFILE" ]; then
         git add "$TMPFILE"
-        git commit -m "$(cat "$TMPFILE")" --date="$(date -R)"
+        git commit -m "$(cat "$TMPFILE")"
     fi
 
     rm "$TMPFILE"
@@ -55,7 +55,7 @@ function jlog() {
     fi
 
     cd $JOURNAL_DIR
-    git log --pretty=format:"%C(240)%ad%Creset%n%s%n%n%b" --date=format:"%Y-%m-%d %I:%M:%S%p"
+    git log --pretty=format:"%C(240)%ad%Creset %s%n%b" --date=format:"%Y-%m-%d %I:%M:%S%p"
 }
 ```
 
