@@ -4,12 +4,6 @@ Journaling via messages of empty commits
 
 Inspired by [Notetime](https://notetimeapp.com)
 
-
-
-https://github.com/user-attachments/assets/4a4d0f07-9a7a-45c6-b25a-e67ac2258a63
-
-
-
 ## **`.zshrc`/`.bashrc` config**
 
 1. Create a new git repo for your journal
@@ -48,3 +42,5 @@ alias j='cdj && empty_commit'
 ```bash
 alias glog='git log --pretty=format:"%C(240)%ad%Creset %s%n%b" --date=format:"%Y-%m-%d %I:%M:%S%p"'
 ```
+
+https://github.com/user-attachments/assets/4a4d0f07-9a7a-45c6-b25a-e67ac2258a63
