@@ -1,69 +1,44 @@
-# git-diary
+# Use git as a diary engine
 
-Git as a diary engine. Paragraph-based.
-Inspired by [Notetime App](https://notetimeapp.com)
+Journaling via messages of empty commits
 
-![j screenshot](./j-screenshot.png)
-![jlog screenshot](./jlog-screenshot.png)
+Inspired by [Notetime](https://notetimeapp.com)
 
-## Quick Start
+## **`.zshrc`/`.bashrc` config**
 
-1. Fork this repo
-2. Clone your fork
-3. Set `JOURNAL_DIR` to the path of the newly cloned fork
-4. Add the `j` and `jlog` functions to your `.zshrc` or `.bashrc` so you can run them from anywhere in your shell
+1. Create a new git repo for your journal
 
-## Writing new journal entries
+2. Set `JOURNAL_DIR` to its path
 
 ```bash
-function j() {
-    if [ -z "$JOURNAL_DIR" ]; then
-        echo "Error: JOURNAL_DIR environment variable is not set"
-        return 1
-    fi
+export JOURNAL_DIR=$HOME/Developer/j
+```
 
-    cd $JOURNAL_DIR
-    TMPFILE=".tmp_entry"
+3. Alias `cdj` to (safely) navigate into it
 
-    vim -c ":set nocursorline" -c "startinsert" "$TMPFILE"
+```bash
+alias cdj='[ -z "$JOURNAL_DIR" ] && echo "export JOURNAL_DIR first" && return 1 || cd $JOURNAL_DIR'
+```
 
-    # # goyo user?
-    # vim -c ":set nocursorline" -c "Goyo" -c "startinsert" "$TMPFILE"
+4. Create a function to write a note in vim and use it as message for an empty commit
 
-    if [ -s "$TMPFILE" ]; then
-        git add "$TMPFILE"
-        git commit -m "$(cat "$TMPFILE")"
-    fi
-
+```bash
+function empty_commit() {
+    TMPFILE=".tmp"
+    vim -c ":set nocursorline" -c "Goyo" -c "startinsert" "$TMPFILE"
+    [ -s "$TMPFILE" ] && git commit --allow-empty -m "$(cat "$TMPFILE")"
     rm "$TMPFILE"
 }
 ```
 
-Launching `j` will launch vim with an empty temp file, which can be used for writing
-the new journal entry. After `:wq`-ing vim, a new commit in the `JOURNAL_DIR` will
-be created with the content of the file as commit message.
-
-This technique allows to use git as an effective journaling engine.
-
-## Reading the journal
+5. Now alias `j` to create a quick journal entry from wherever you are in your shell
 
 ```bash
-function jlog() {
-    if [ -z "$JOURNAL_DIR" ]; then
-        echo "Error: JOURNAL_DIR environment variable is not set"
-        return 1
-    fi
-
-    cd $JOURNAL_DIR
-    git log --pretty=format:"%C(240)%ad%Creset %s%n%b" --date=format:"%Y-%m-%d %I:%M:%S%p"
-}
+alias j='cdj && empty_commit'
 ```
 
-Launching `jlog` from anywhere in the terminal will pretty print the messages of the `JOURNAL_DIR`
-git commits, which will be the conten of the journal itself.
-
-## Pushing changes upstream
+6. Scroll the entries as pretty git logs with
 
 ```bash
-alias jpush='cd $JOURNAL_DIR && git push'
+alias glog='git log --pretty=format:"%C(240)%ad%Creset %s%n%b" --date=format:"%Y-%m-%d %I:%M:%S%p"'
 ```
