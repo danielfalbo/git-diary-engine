@@ -25,7 +25,9 @@ alias cdj='[ -z "$JOURNAL_DIR" ] && echo "export JOURNAL_DIR first" && return 1 
 ```bash
 function empty_commit() {
     TMPFILE=".tmp"
-    vim -c ":set nocursorline" -c "Goyo" -c "startinsert" "$TMPFILE"
+    vim -c ":set nocursorline" -c "startinsert" "$TMPFILE"
+    # # goyo user?
+    # vim -c ":set nocursorline" -c "Goyo" -c "startinsert" "$TMPFILE"
     [ -s "$TMPFILE" ] && git commit --allow-empty -m "$(cat "$TMPFILE")"
     rm "$TMPFILE"
 }
